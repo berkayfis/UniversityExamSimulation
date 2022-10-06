@@ -1,0 +1,12 @@
+C:\Users\BerkayFis\Documents\Projects\UniversityExamSimulation\UniversityExamSimulation.Core\bin\Debug\net6.0\UniversityExamSimulation.Core.deps.json
+C:\Users\BerkayFis\Documents\Projects\UniversityExamSimulation\UniversityExamSimulation.Core\bin\Debug\net6.0\UniversityExamSimulation.Core.dll
+C:\Users\BerkayFis\Documents\Projects\UniversityExamSimulation\UniversityExamSimulation.Core\bin\Debug\net6.0\UniversityExamSimulation.Core.pdb
+C:\Users\BerkayFis\Documents\Projects\UniversityExamSimulation\UniversityExamSimulation.Core\obj\Debug\net6.0\UniversityExamSimulation.Core.csproj.AssemblyReference.cache
+C:\Users\BerkayFis\Documents\Projects\UniversityExamSimulation\UniversityExamSimulation.Core\obj\Debug\net6.0\UniversityExamSimulation.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\BerkayFis\Documents\Projects\UniversityExamSimulation\UniversityExamSimulation.Core\obj\Debug\net6.0\UniversityExamSimulation.Core.AssemblyInfoInputs.cache
+C:\Users\BerkayFis\Documents\Projects\UniversityExamSimulation\UniversityExamSimulation.Core\obj\Debug\net6.0\UniversityExamSimulation.Core.AssemblyInfo.cs
+C:\Users\BerkayFis\Documents\Projects\UniversityExamSimulation\UniversityExamSimulation.Core\obj\Debug\net6.0\UniversityExamSimulation.Core.csproj.CoreCompileInputs.cache
+C:\Users\BerkayFis\Documents\Projects\UniversityExamSimulation\UniversityExamSimulation.Core\obj\Debug\net6.0\UniversityExamSimulation.Core.dll
+C:\Users\BerkayFis\Documents\Projects\UniversityExamSimulation\UniversityExamSimulation.Core\obj\Debug\net6.0\refint\UniversityExamSimulation.Core.dll
+C:\Users\BerkayFis\Documents\Projects\UniversityExamSimulation\UniversityExamSimulation.Core\obj\Debug\net6.0\UniversityExamSimulation.Core.pdb
+C:\Users\BerkayFis\Documents\Projects\UniversityExamSimulation\UniversityExamSimulation.Core\obj\Debug\net6.0\ref\UniversityExamSimulation.Core.dll
