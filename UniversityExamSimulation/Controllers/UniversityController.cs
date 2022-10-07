@@ -4,7 +4,7 @@ using UniversityExamSimulation.Core.Services;
 namespace UniversityExamSimulation.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("universities")]
     public class UniversityController : Controller
     {
         private IUniversityService universityService;

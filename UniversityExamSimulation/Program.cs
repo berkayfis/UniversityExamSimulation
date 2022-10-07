@@ -15,8 +15,10 @@ builder.Services.AddDbContext<UniversityExamDbContext>(options =>
 
 builder.Services.AddHttpClient();
 
+builder.Services.AddTransient<DataSeeder>();
 builder.Services.AddTransient<IStudentService, StudentService>();
 builder.Services.AddTransient<IStudentRepository, StudentRepository>();
+builder.Services.AddTransient<IUniversityService, UniversityService>();
 builder.Services.AddTransient<IUniversityRepository, UniversityRepository>();
 builder.Services.AddTransient<IStartExamService, StartExamService>();
 
@@ -26,6 +28,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+SeedData(app);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -40,3 +43,14 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+void SeedData(IHost app)
+{
+    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    using (var scope = scopedFactory.CreateScope())
+    {
+        var service = scope.ServiceProvider.GetService<DataSeeder>();
+        service.Seed();
+    }
+}
