@@ -30,29 +30,17 @@ namespace UniversityExamSimulation.Services
             if (articles == null) return null;
             var students = studentRepository.GetStudents();
             CalculateStudentsPoint(students, articles);
-            //sort student
-            //addst
+            students = students.OrderByDescending(s => s.Point).ToList();
+            var universities = universityRepository.GetUniversities();
+            AddStudentsToUnivertiy(students, universities);
             return students;
         }
 
         private void CalculateStudentsPoint(List<Student> students, List<Article> articles)
         {
-            List<string> distinctStudentFullNames = new List<string>();
-            List<string> distinctArticleNames = new List<string>();
+            var distinctStudentFullNames = GetDistinctStudentFullNames(students);
+            var distinctArticleNames = GetDistinctArticleNames(articles); 
 
-            foreach (var student in students)
-            {
-                string stundentFullName = String.Concat(student.Name, student.Surname);
-                var distinctStudentsChars = stundentFullName.ToLower().Distinct();
-                distinctStudentFullNames.Add(new String(distinctStudentsChars.ToArray()));
-            }
-            foreach (var article in articles)
-            {
-                var distinctArticleChars = article.Name.ToLower().Distinct();
-                distinctArticleNames.Add(new String(distinctArticleChars.ToArray()));
-            }
-
-            int i = 0;
             foreach (var (student, index) in distinctStudentFullNames.Select((value, i) => (value, i)))
             {
                 var point = 0;
@@ -60,7 +48,7 @@ namespace UniversityExamSimulation.Services
                 foreach (var article in distinctArticleNames)
                 {
                     //point += article.Count(student.Contains);
-                    point += count(article, student);
+                    point += CalculateMatches(article, student);
                 }
                 students[index].Point = point;
             }
@@ -68,10 +56,22 @@ namespace UniversityExamSimulation.Services
 
         public void AddStudentsToUnivertiy(List<Student> students, List<University> universities)
         {
-            var universityQuota = configuration["AppSettings:UniversityQuota"];
+            var universityQuota = int.Parse(configuration["AppSettings:UniversityQuota"]);
+            int currentQuota = 0;
+            int currentUniversityId = 0;
             foreach (var student in students)
             {
-                //student.UniversityId = universities[i].Id;
+                if (currentQuota < universityQuota)
+                {
+                    student.UniversityId = universities[currentUniversityId].Id;
+                    student.University = universities[currentUniversityId];
+                    currentQuota++;
+                }
+                else
+                {
+                    currentUniversityId++;
+                    currentQuota = 0;
+                }
             }
         }
 
@@ -97,25 +97,42 @@ namespace UniversityExamSimulation.Services
             return string.Format(fetchArticleUrl, examDate.ToString(dateTimeFormat));
         }
 
-        private int count(string str1, string str2)
+        private List<string> GetDistinctStudentFullNames(List<Student> students)
         {
-            int c = 0, j = 0;
+            List<string> distinctStudentFullNames = new List<string>();
 
-            // Traverse the string 1 char by char
-            for (int i = 0; i < str1.Length; i++)
+            foreach (var student in students)
             {
+                string stundentFullName = string.Concat(student.Name, student.Surname);
+                var distinctStudentsChars = stundentFullName.ToLower().Distinct();
+                distinctStudentFullNames.Add(new string(distinctStudentsChars.ToArray()));
+            }
+            return distinctStudentFullNames;
+        }
 
-                // This will check if str1[i]
-                // is present in str2 or not
-                // str2.find(str1[i]) returns -1 if not found
-                // otherwise it returns the starting occurrence
-                // index of that character in str2
-                if (str2.IndexOf(str1[i]) >= 0)
+        private List<string> GetDistinctArticleNames(List<Article> articles)
+        {
+            List<string> distinctArticleNames = new List<string>();
+
+            foreach (var article in articles)
+            {
+                var distinctArticleChars = article.Name.ToLower().Distinct();
+                distinctArticleNames.Add(new String(distinctArticleChars.ToArray()));
+            }
+            return distinctArticleNames;
+        }
+
+        private int CalculateMatches(string distinctArticleName, string distinctStudentName)
+        {
+            int matches = 0;
+            for (int i = 0; i < distinctArticleName.Length; i++)
+            {
+                if (distinctStudentName.IndexOf(distinctArticleName[i]) >= 0)
                 {
-                    c += 1;
+                    matches += 1;
                 }
             }
-            return c;
+            return matches;
         }
 
     }
